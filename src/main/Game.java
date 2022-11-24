@@ -1,3 +1,5 @@
+package main;
+
 public class Game {
 
     private GameWindow gameWindow;
@@ -6,6 +8,7 @@ public class Game {
     public Game() {
         gamePanel = new GamePanel();
         gameWindow = new GameWindow(gamePanel);
+        gamePanel.requestFocus();
     }
 
 }
