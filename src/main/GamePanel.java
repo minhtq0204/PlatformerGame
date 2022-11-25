@@ -1,44 +1,43 @@
 package main;
 
+import java.awt.Dimension;
+import java.awt.Graphics;
+import javax.swing.JPanel;
 import inputs.KeyboardInputs;
 import inputs.MouseInputs;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import static main.Game.GAME_HEIGHT;
+import static main.Game.GAME_WIDTH;
 
 public class GamePanel extends JPanel {
 
     private MouseInputs mouseInputs;
-    private int xDelta = 100, yDelta = 100;
+    private Game game;
 
-    public GamePanel() {
+    public GamePanel(Game game) {
         mouseInputs = new MouseInputs(this);
+        this.game = game;
+        setPanelSize();
         addKeyListener(new KeyboardInputs(this));
         addMouseListener(mouseInputs);
         addMouseMotionListener(mouseInputs);
     }
 
-    public void changeXDelta(int value){
-        this.xDelta += value;
-        repaint();
+    private void setPanelSize() {
+        Dimension size = new Dimension(GAME_WIDTH, GAME_HEIGHT);
+        setPreferredSize(size);
     }
 
-    public void changeYDelta(int value){
-        this.yDelta += value;
-        repaint();
+    public void updateGame() {
+
     }
 
-    public void setRectPosition(int x, int y){
-        this.xDelta = x;
-        this.yDelta = y;
-        repaint();
-    }
-
-    // it gets called when we start the game
-    public void paintComponent(Graphics g){
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawRect(xDelta, yDelta, 200, 50);
+        game.render(g);
     }
+
+    public Game getGame() {
+        return game;
+    }
+
 }
